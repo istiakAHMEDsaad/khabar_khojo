@@ -66,9 +66,9 @@ const BrowsePage = () => {
       </TypographyH3>
 
       {/* contianer */}
-      <div className='flex flex-row items-start mt-5 gap-x-6'>
+      <div className='flex md:flex-row flex-col items-start mt-5 gap-x-6'>
         {/* sidebar */}
-        <div className='md:basis-[25%] md:flex border md:flex-col border-e border-gray-100 bg-white dark:bg-neutral-950 hidden'>
+        <div className='md:basis-[25%] md:flex border md:flex-col border-e border-gray-100 bg-white dark:bg-neutral-950'>
           <div className='px-4 py-4'>
             {/* list all items */}
             <ul className='mt-6 space-y-1'>

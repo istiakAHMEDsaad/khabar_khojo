@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import { toast, Bounce } from 'react-toastify';
 import { MoonLoader } from 'react-spinners';
 import ReactPlayer from 'react-player';
 import { TypographyH3 } from '../Typography/TypographyH3';
-import { ScrollText } from 'lucide-react';
+import { ScrollText, CookingPot } from 'lucide-react';
+import { Button } from '../ui/button';
 
 const MealCardDetails = () => {
   const { id: mealId } = useParams();
@@ -87,6 +88,10 @@ const MealCardDetails = () => {
 
   return (
     <section className='container mx-auto'>
+      <Link to={-1} className=''>
+        <Button className={"mt-4"}>Back</Button>
+      </Link>
+      
       <div
         className={`flex flex-col items-center justify-center ${
           loading === true ? 'min-h-screen]' : ''
@@ -198,74 +203,456 @@ const MealCardDetails = () => {
             Ingredient & Measurement:
           </h2>
 
-          <div className='flow-root mt-5'>
-            <dl className='-my-3 divide-y divide-gray-200 text-sm'>
-              {strIngredient1 ? (
-                <div className='grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4'>
-                  <div>
-                    <img
-                      className='w-10'
-                      src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
-                        strIngredient1
-                      )}.png`}
-                      alt={strMeal}
-                    />
-                    <p className='font-medium text-gray-900'>
-                      {strIngredient1}
-                    </p>
-                  </div>
+          <div className='overflow-x-auto'>
+            <table className='table'>
+              {/* head */}
+              <thead className='dark:text-gray-300'>
+                <tr>
+                  <th>Image</th>
+                  <th>Ingredient</th>
+                  <th>Measure</th>
+                </tr>
+              </thead>
 
-                  <dd className='text-gray-700 sm:col-span-2'>{strMeasure1}</dd>
-                </div>
-              ) : (
-                ''
-              )}
+              <tbody>
+                {/* row 1 */}
+                {strIngredient1 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient1
+                              )}.png`}
+                              alt={strIngredient1}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
 
-              {strIngredient2 ? (
-                <div className='grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4'>
-                  <div>
-                    <img
-                      className='w-10'
-                      src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
-                        strIngredient2
-                      )}.png`}
-                      alt={strMeal}
-                    />
-                    <p className='font-medium text-gray-900'>
-                      {strIngredient2}
-                    </p>
-                  </div>
+                    <td>{strIngredient1}</td>
 
-                  <dd className='text-gray-700 sm:col-span-2'>{strMeasure2}</dd>
-                </div>
-              ) : (
-                ''
-              )}
-              
-              {strIngredient3 ? (
-                <div className='grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4'>
-                  <div>
-                    <img
-                      className='w-10'
-                      src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
-                        strIngredient3
-                      )}.png`}
-                      alt={strMeal}
-                    />
-                    <p className='font-medium text-gray-900'>
-                      {strIngredient3}
-                    </p>
-                  </div>
+                    <td>{strMeasure1}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
 
-                  <dd className='text-gray-700 sm:col-span-2'>{strMeasure3}</dd>
-                </div>
-              ) : (
-                ''
-              )}
-                
+                {/* row 2 */}
+                {strIngredient2 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient2
+                              )}.png`}
+                              alt={strIngredient2}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
 
-            </dl>
+                    <td>{strIngredient2}</td>
+
+                    <td>{strMeasure2}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row3 */}
+                {strIngredient3 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient3
+                              )}.png`}
+                              alt={strIngredient3}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient3}</td>
+
+                    <td>{strMeasure3}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 4 */}
+                {strIngredient4 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient4
+                              )}.png`}
+                              alt={strIngredient4}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient4}</td>
+
+                    <td>{strMeasure4}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 5 */}
+                {strIngredient5 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient5
+                              )}.png`}
+                              alt={strIngredient5}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient5}</td>
+
+                    <td>{strMeasure5}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 6 */}
+                {strIngredient6 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient6
+                              )}.png`}
+                              alt={strIngredient6}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient6}</td>
+
+                    <td>{strMeasure6}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 7 */}
+                {strIngredient7 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient7
+                              )}.png`}
+                              alt={strIngredient7}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient7}</td>
+
+                    <td>{strMeasure7}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 8 */}
+                {strIngredient8 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient8
+                              )}.png`}
+                              alt={strIngredient8}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient8}</td>
+
+                    <td>{strMeasure8}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 9 */}
+                {strIngredient9 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient9
+                              )}.png`}
+                              alt={strIngredient9}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient9}</td>
+
+                    <td>{strMeasure9}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 10 */}
+                {strIngredient10 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient10
+                              )}.png`}
+                              alt={strIngredient10}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient10}</td>
+
+                    <td>{strMeasure10}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 11 */}
+                {strIngredient11 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient11
+                              )}.png`}
+                              alt={strIngredient11}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient11}</td>
+
+                    <td>{strMeasure11}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 12 */}
+                {strIngredient12 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient12
+                              )}.png`}
+                              alt={strIngredient12}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient12}</td>
+
+                    <td>{strMeasure12}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 10 */}
+                {strIngredient13 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient13
+                              )}.png`}
+                              alt={strIngredient13}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient13}</td>
+
+                    <td>{strMeasure13}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 14 */}
+                {strIngredient14 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient14
+                              )}.png`}
+                              alt={strIngredient14}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient14}</td>
+
+                    <td>{strMeasure14}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+
+                {/* row 15 */}
+                {strIngredient15 ? (
+                  <tr>
+                    {/* image */}
+                    <td>
+                      <div className='flex items-center gap-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-squircle h-12 w-12'>
+                            <img
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient15
+                              )}.png`}
+                              alt={strIngredient15}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{strIngredient15}</td>
+
+                    <td>{strMeasure15}</td>
+                  </tr>
+                ) : (
+                  ''
+                )}
+              </tbody>
+            </table>
           </div>
+
+          <h2 className='mt-10 flex items-center font-bold md:text-2xl gap-2 underline'>
+            <CookingPot />
+            Cooking Procedure:
+          </h2>
+
+          <section>
+            <div className='mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8'>
+              <div className='flex md:flex-row flex-col-reverse md:gap-0 gap-5 lg:items-center md:items-start md:justify-between'>
+                {/* text section */}
+                <div className='lg:basis-[60%] md:basis-[50%]'>
+                  <div className='max-w-prose md:max-w-none'>
+                    <h2 className='text-2xl font-semibold text-gray-900 sm:text-3xl'>
+                      {strMeal}
+                    </h2>
+
+                    <p className='mt-4 text-gray-700'>{strInstructions}</p>
+                  </div>
+                </div>
+
+                {/* image */}
+                <div className='lg:basis-[30%] md:basis-[40%] lg:pt-0 md:pt-14'>
+                  <img
+                    src={strMealThumb}
+                    alt={strMeal}
+                    className='lg:h-96 lg:w-96 object-cover rounded-md'
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </section>
