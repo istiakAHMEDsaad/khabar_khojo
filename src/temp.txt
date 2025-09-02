@@ -1,164 +1,113 @@
-import React, { useState } from "react";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { toast, Bounce } from 'react-toastify';
+import MealCard from '../components/Card_Item/MealCard';
+import { MoonLoader } from 'react-spinners';
+import ReactPaginate from 'react-paginate';
+import { useSearchParams } from 'react-router-dom';
 
-const Header = () => {
-  const [profileOpen, setProfileOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+const BrowsePage = () => {
+  const [meal, setMeal] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // React Router: manage query params
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialPage = parseInt(searchParams.get("page") || "1", 10); // default = page 1
+  const [currentPage, setCurrentPage] = useState(initialPage - 1); // react-paginate is 0-based
+
+  const itemsPerPage = 8;
+
+  useEffect(() => {
+    const mealData = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_apiUrl}`);
+        setMeal(res?.data?.meals || []);
+      } catch (err) {
+        toast.error(err?.message, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        });
+      }
+      setLoading(false);
+    };
+    mealData();
+  }, []);
+
+  // Pagination logic
+  const offset = currentPage * itemsPerPage;
+  const currentItems = meal.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(meal.length / itemsPerPage);
+
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+    setSearchParams({ page: (selected + 1).toString() }); // update URL
+  };
 
   return (
-    <header className="bg-white font-sans">
-      <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo left section */}
-          <div className="flex-1 md:flex md:items-center md:gap-12">
-            <a className="text-teal-600 flex items-center gap-2" href="#">
-              <img
-                className="w-9 h-9 object-fill"
-                src="/restaurant.png"
-                alt="logo"
-              />
-              <p className="text-xl lg:text-2xl">Khabar Khojo</p>
-            </a>
-          </div>
-
-          {/* Nav right section */}
-          <div className="md:flex md:items-center md:gap-12">
-            {/* Medium devices nav */}
-            <nav aria-label="Global" className="hidden md:block">
-              <ul className="flex items-center gap-6 text-sm">
-                {["About", "Careers", "History", "Services", "Projects", "Blog"].map(
-                  (item) => (
-                    <li key={item}>
-                      <a
-                        className="text-gray-500 transition hover:text-gray-500/75"
-                        href="#"
-                      >
-                        {item}
-                      </a>
-                    </li>
-                  )
-                )}
-              </ul>
-            </nav>
-
-            {/* Profile dropdown */}
-            <div className="hidden md:relative md:block">
-              <button
-                type="button"
-                onClick={() => setProfileOpen((prev) => !prev)}
-                className="overflow-hidden rounded-full border border-gray-300 shadow-inner"
-              >
-                <span className="sr-only">Toggle dashboard menu</span>
-                <img
-                  src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1770&auto=format&fit=crop"
-                  alt="profile"
-                  className="size-10 object-cover"
-                />
-              </button>
-
-              {profileOpen && (
-                <div
-                  className="absolute end-0 z-10 mt-0.5 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg"
-                  role="menu"
-                >
-                  <div className="p-2">
-                    <a
-                      href="#"
-                      className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                      role="menuitem"
-                    >
-                      My profile
-                    </a>
-                    <a
-                      href="#"
-                      className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                      role="menuitem"
-                    >
-                      Billing summary
-                    </a>
-                    <a
-                      href="#"
-                      className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                      role="menuitem"
-                    >
-                      Team settings
-                    </a>
+    <section>
+      <div>
+        {/* Sidebar */}
+        <div className='md:flex md:flex-col border-e border-gray-100 bg-white dark:bg-neutral-950 hidden'>
+          <div className='px-4 py-6'>
+            <ul className='mt-6 space-y-1'>
+              <li>
+                <label htmlFor='Search'>
+                  <span className='text-sm font-medium text-gray-700'>Search</span>
+                  <div className='relative'>
+                    <input
+                      type='text'
+                      id='Search'
+                      className='mt-0.5 w-full rounded border border-gray-300 pe-10 shadow-sm sm:text-sm h-8 pl-2'
+                    />
                   </div>
-                  <div className="p-2">
-                    <form method="POST" action="#">
-                      <button
-                        type="submit"
-                        className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
-                        role="menuitem"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                          className="size-4"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-                          />
-                        </svg>
-                        Logout
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Hamburger small devices */}
-            <div className="block md:hidden">
-              <button
-                onClick={() => setMobileMenuOpen((prev) => !prev)}
-                className="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="size-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </button>
-            </div>
+                </label>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Mobile nav */}
-        {mobileMenuOpen && (
-          <nav className="block md:hidden mt-2">
-            <ul className="flex flex-col gap-2 text-sm p-4 bg-gray-50 rounded-md">
-              {["About", "Careers", "History", "Services", "Projects", "Blog"].map(
-                (item) => (
-                  <li key={item}>
-                    <a
-                      className="block text-gray-600 transition hover:text-gray-800"
-                      href="#"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                )
-              )}
-            </ul>
-          </nav>
-        )}
+        {/* Cards */}
+        <div className='flex flex-col items-center justify-center'>
+          {loading && (
+            <MoonLoader loading={loading} size={40} color='rgba(12, 10, 9, 1)' />
+          )}
+
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4'>
+            {currentItems.map((item) => (
+              <MealCard key={item?.idMeal} item={item} />
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <div className='mt-6'>
+            <ReactPaginate
+              breakLabel='...'
+              nextLabel='Next >'
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={3}
+              pageCount={pageCount}
+              forcePage={currentPage} // <- keeps correct page active from URL
+              previousLabel='< Prev'
+              renderOnZeroPageCount={null}
+              containerClassName='flex items-center space-x-2'
+              pageClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
+              activeClassName='bg-black text-white dark:bg-white dark:text-black'
+              previousClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
+              nextClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
+              disabledClassName='opacity-50 cursor-not-allowed'
+            />
+          </div>
+        </div>
       </div>
-    </header>
+    </section>
   );
 };
 
-export default Header;
+export default BrowsePage;

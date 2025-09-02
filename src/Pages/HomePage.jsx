@@ -47,8 +47,6 @@ const HomePage = () => {
     limitedData();
   }, []);
 
-  console.log(loading);
-
   return (
     <main className='mb-8'>
       <div
