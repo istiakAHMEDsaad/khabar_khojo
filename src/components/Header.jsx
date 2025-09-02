@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ModeToggle';
+import { Link, NavLink } from 'react-router';
 
 const Header = () => {
   return (
@@ -28,17 +29,49 @@ const Header = () => {
             </div>
             <ul
               tabIndex={0}
-              className='menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow'
+              className='menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow space-y-2'
             >
-              <li>
-                <a>Home</a>
-              </li>
-              <li>
-                <a>Browse</a>
-              </li>
-              <li>
-                <a>About</a>
-              </li>
+              <NavLink to={'/'} className={({ isActive, isPending }) => ''}>
+                {({ isActive }) => (
+                  <button
+                    className={`btn btn-block ${
+                      isActive ? 'btn-neutral' : 'btn-soft'
+                    }`}
+                  >
+                    Home
+                  </button>
+                )}
+              </NavLink>
+
+              <NavLink
+                to={'/browse'}
+                className={({ isActive, isPending }) => ''}
+              >
+                {({ isActive }) => (
+                  <button
+                    className={`btn btn-block ${
+                      isActive ? 'btn-neutral' : 'btn-soft'
+                    }`}
+                  >
+                    Browse
+                  </button>
+                )}
+              </NavLink>
+
+              <NavLink
+                to={'/about'}
+                className={({ isActive, isPending }) => ''}
+              >
+                {({ isActive }) => (
+                  <button
+                    className={`btn btn-block ${
+                      isActive ? 'btn-neutral' : 'btn-soft'
+                    }`}
+                  >
+                    About
+                  </button>
+                )}
+              </NavLink>
             </ul>
           </div>
           <a className='btn btn-ghost text-xl'>Khabar Khojo</a>
@@ -47,21 +80,24 @@ const Header = () => {
         {/* navbar center medium devices */}
         <div className='navbar-center hidden lg:flex'>
           <ul className='menu menu-horizontal px-1 gap-2'>
-            <li>
-              <Button variant={''}>
-                <a>Home</a>
-              </Button>
-            </li>
-            <li>
-              <Button variant={'secondary'}>
-                <a>Browse</a>
-              </Button>
-            </li>
-            <li>
-              <Button variant={'secondary'}>
-                <a>About</a>
-              </Button>
-            </li>
+            {/* <Link to={'/'}>Home</Link> */}
+            <NavLink to={`/`} className={({ isActive, isPending }) => ''}>
+              {({ isActive }) => (
+                <Button variant={isActive ? '' : 'secondary'}>Home</Button>
+              )}
+            </NavLink>
+
+            <NavLink to={`/browse`} className={({ isActive, isPending }) => ''}>
+              {({ isActive }) => (
+                <Button variant={isActive ? '' : 'secondary'}>Browse</Button>
+              )}
+            </NavLink>
+
+            <NavLink to={`/about`} className={({ isActive, isPending }) => ''}>
+              {({ isActive }) => (
+                <Button variant={isActive ? '' : 'secondary'}>About</Button>
+              )}
+            </NavLink>
           </ul>
         </div>
 

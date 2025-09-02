@@ -14,6 +14,7 @@ import axios from 'axios';
 import { useEffect, useState, CSSProperties } from 'react';
 import { toast, Bounce } from 'react-toastify';
 import { MoonLoader } from 'react-spinners';
+import { Link } from 'react-router';
 
 const HomePage = () => {
   const [meals, setMeals] = useState([]);
@@ -180,7 +181,7 @@ const HomePage = () => {
         </div>
 
         <div>
-          <Button>Browse All</Button>
+          <Link to={'/browse'}><Button>Browse All</Button></Link>
         </div>
       </div>
     </main>
