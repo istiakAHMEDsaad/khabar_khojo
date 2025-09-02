@@ -4,6 +4,7 @@ import ErrorPage from '../Pages/ErrorPage';
 import HomePage from '../Pages/HomePage';
 import BrowsePage from '../Pages/BrowsePage';
 import AboutPage from '../Pages/AboutPage';
+import FilterByCategory from '../Pages/FilterByCategory';
 
 const router = createBrowserRouter([
   {
@@ -20,8 +21,8 @@ const router = createBrowserRouter([
         element: <BrowsePage />,
       },
       {
-        path: '/about',
-        element: <AboutPage />,
+        path: '/category',
+        element: <FilterByCategory />,
       },
     ],
   },

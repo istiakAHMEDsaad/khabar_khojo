@@ -2,7 +2,10 @@ import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ModeToggle';
 import { Link, NavLink } from 'react-router';
 
+
 const Header = () => {
+  
+  
   return (
     <header>
       <div className='navbar bg-base-100 dark:bg-neutral-950 shadow-sm font-sans'>
@@ -59,7 +62,7 @@ const Header = () => {
               </NavLink>
 
               <NavLink
-                to={'/about'}
+                to={'/category'}
                 className={({ isActive, isPending }) => ''}
               >
                 {({ isActive }) => (
@@ -68,7 +71,7 @@ const Header = () => {
                       isActive ? 'btn-neutral' : 'btn-soft'
                     }`}
                   >
-                    About
+                    Category
                   </button>
                 )}
               </NavLink>
@@ -93,9 +96,9 @@ const Header = () => {
               )}
             </NavLink>
 
-            <NavLink to={`/about`} className={({ isActive, isPending }) => ''}>
+            <NavLink to={`/category`} className={({ isActive, isPending }) => ''}>
               {({ isActive }) => (
-                <Button variant={isActive ? '' : 'secondary'}>About</Button>
+                <Button variant={isActive ? '' : 'secondary'}>Category</Button>
               )}
             </NavLink>
           </ul>

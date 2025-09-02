@@ -24,13 +24,13 @@ const HomePage = () => {
     const limitedData = async () => {
       try {
         const res = await axios.get(
-          `https://www.themealdb.com/api/json/v1/1/search.php?s=`
+          `${import.meta.env.VITE_apiUrl}`
         );
         const sixData = res?.data?.meals?.slice(0, 8) || [];
 
         setMeals(sixData);
       } catch (err) {
-        toast(err?.message, {
+        toast.error(err?.message, {
           position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
