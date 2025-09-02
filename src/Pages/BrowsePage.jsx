@@ -5,6 +5,7 @@ import MealCard from '../components/Card_Item/MealCard';
 import { MoonLoader } from 'react-spinners';
 import { useSearchParams } from 'react-router';
 import ReactPaginate from 'react-paginate';
+import { TypographyH3 } from '../components/Typography/TypographyH3';
 
 const BrowsePage = () => {
   const [meal, setMeal] = useState([]);
@@ -52,12 +53,22 @@ const BrowsePage = () => {
   };
 
   return (
-    <section>
+    <section className='my-10 mx-auto container'>
+      <TypographyH3
+        textVal={'italic'}
+        textItem={'center'}
+        animateOne={'animate__animated'}
+        animateTwo={'animate__flash'}
+        animateThree={'animate__infinite'}
+        animateFour={'animate__slower'}
+      >
+        Search Your Favourite Food
+      </TypographyH3>
       {/* contianer */}
-      <div>
+      <div className='flex flex-row items-start mt-5'>
         {/* sidebar */}
-        <div className='md:flex md:flex-col border-e border-gray-100 bg-white dark:bg-neutral-950 hidden'>
-          <div className='px-4 py-6'>
+        <div className='md:basis-[25%] md:flex border md:flex-col border-e border-gray-100 bg-white dark:bg-neutral-950 hidden'>
+          <div className='px-4 py-4'>
             {/* list all items */}
             <ul className='mt-6 space-y-1'>
               {/* list 1 search */}
@@ -114,17 +125,23 @@ const BrowsePage = () => {
         </div>
 
         {/* card section */}
-        <div className='flex flex-col items-center justify-center'>
-          {loading && (
-            <MoonLoader
-              loading={loading}
-              size={40}
-              color='rgba(12, 10, 9, 1)'
-            />
-          )}
+        <div className='md:basis-[75%] flex flex-col items-center justify-center'>
+          <div
+            className={`flex flex-col items-center justify-center ${
+              loading === true ? 'min-h-screen]' : ''
+            }`}
+          >
+            {loading && (
+              <MoonLoader
+                loading={loading}
+                size={40}
+                color='rgba(12, 10, 9, 1)'
+              />
+            )}
+          </div>
 
           {/* card container grid version */}
-          <div>
+          <div className='flex flex-col items-center justify-center'>
             {currentItems?.map((item) => (
               <MealCard key={item?.idMeal} item={item} />
             ))}
