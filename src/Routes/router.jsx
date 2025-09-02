@@ -5,6 +5,7 @@ import HomePage from '../Pages/HomePage';
 import BrowsePage from '../Pages/BrowsePage';
 import AboutPage from '../Pages/AboutPage';
 import FilterByCategory from '../Pages/FilterByCategory';
+import MealCardDetails from '../components/Card_Item/MealCardDetails';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: '/category',
         element: <FilterByCategory />,
+      },
+      {
+        path: '/browse/:id',
+        element: <MealCardDetails />,
       },
     ],
   },

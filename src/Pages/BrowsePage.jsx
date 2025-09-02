@@ -16,7 +16,7 @@ const BrowsePage = () => {
   const initialPage = parseInt(searchParams.get('page') || 1); //default page 1
   const [currentPage, setCurrentPage] = useState(initialPage - 1); //make sure index 0
 
-  const itemsPerPage = 8;
+  const itemsPerPage = 9;
 
   useEffect(() => {
     const mealData = async () => {
@@ -64,8 +64,9 @@ const BrowsePage = () => {
       >
         Search Your Favourite Food
       </TypographyH3>
+
       {/* contianer */}
-      <div className='flex flex-row items-start mt-5'>
+      <div className='flex flex-row items-start mt-5 gap-x-6'>
         {/* sidebar */}
         <div className='md:basis-[25%] md:flex border md:flex-col border-e border-gray-100 bg-white dark:bg-neutral-950 hidden'>
           <div className='px-4 py-4'>
@@ -74,7 +75,7 @@ const BrowsePage = () => {
               {/* list 1 search */}
               <li>
                 <label htmlFor='Search'>
-                  <span className='text-sm font-medium text-gray-700'>
+                  <span className='text-sm font-medium text-gray-700 dark:text-white'>
                     {' '}
                     Search{' '}
                   </span>
@@ -125,7 +126,7 @@ const BrowsePage = () => {
         </div>
 
         {/* card section */}
-        <div className='md:basis-[75%] flex flex-col items-center justify-center'>
+        <div className='md:basis-[70%] flex flex-col items-center justify-center'>
           <div
             className={`flex flex-col items-center justify-center ${
               loading === true ? 'min-h-screen]' : ''
@@ -142,9 +143,11 @@ const BrowsePage = () => {
 
           {/* card container grid version */}
           <div className='flex flex-col items-center justify-center'>
-            {currentItems?.map((item) => (
+            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3'>
+              {currentItems?.map((item) => (
               <MealCard key={item?.idMeal} item={item} />
             ))}
+            </div>
           </div>
 
           {/* pagination here */}
