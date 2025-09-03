@@ -634,11 +634,11 @@ const MealCardDetails = () => {
                 {/* text section */}
                 <div className='lg:basis-[60%] md:basis-[50%]'>
                   <div className='max-w-prose md:max-w-none'>
-                    <h2 className='text-2xl font-semibold text-gray-900 sm:text-3xl'>
+                    <h2 className='text-2xl font-semibold text-gray-900 dark:text-gray-200 sm:text-3xl'>
                       {strMeal}
                     </h2>
 
-                    <p className='mt-4 text-gray-700'>{strInstructions}</p>
+                    <p className='mt-4 text-gray-700 dark:text-gray-300'>{strInstructions}</p>
                   </div>
                 </div>
 

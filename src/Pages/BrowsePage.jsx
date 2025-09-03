@@ -6,6 +6,8 @@ import { MoonLoader } from 'react-spinners';
 import { useSearchParams } from 'react-router';
 import ReactPaginate from 'react-paginate';
 import { TypographyH3 } from '../components/Typography/TypographyH3';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 const BrowsePage = () => {
   const [meal, setMeal] = useState([]);
@@ -73,110 +75,64 @@ const BrowsePage = () => {
       </TypographyH3>
 
       {/* contianer */}
-      <div className='flex md:flex-row flex-col items-start mt-5 gap-x-6'>
+      <div className='flex flex-col items-center justify-center mt-5 gap-y-6'>
         {/* sidebar */}
-        <div className='md:basis-[25%] md:flex border md:flex-col border-e border-gray-100 bg-white dark:bg-neutral-950'>
-          <div className='px-4 py-4'>
-            {/* list all items */}
-            <ul className='mt-6 space-y-1'>
-              {/* list 1 search */}
-              <li>
-                <label htmlFor='Search'>
-                  <span className='text-sm font-medium text-gray-700 dark:text-white'>
-                    {' '}
-                    Search{' '}
-                  </span>
-
-                  <div className='relative'>
-                    <input
-                      type='text'
-                      id='Search'
-                      className='mt-0.5 w-full rounded border border-gray-300 pe-10 shadow-sm sm:text-sm h-8 pl-2'
-                      value={searchTerm}
-                      onChange={(e) => {
-                        setSearchTerm(e.target.value);
-                      }}
-                    />
-
-                    <span className='absolute inset-y-0 right-2 grid w-8 place-content-center'>
-                      <button
-                        type='button'
-                        aria-label='Submit'
-                        className='rounded-full p-1.5 text-gray-700 transition-colors hover:bg-gray-100'
-                      >
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          fill='none'
-                          viewBox='0 0 24 24'
-                          strokeWidth='1.5'
-                          stroke='currentColor'
-                          className='size-4'
-                        >
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z'
-                          />
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                </label>
-              </li>
-            </ul>
-          </div>
+        <div className='grid w-full max-w-sm items-center gap-3'>
+          <Label htmlFor='search'>Search</Label>
+          <Input
+            type='text'
+            id='search'
+            placeholder='Search Food Like Arrabiata...'
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+          />
         </div>
 
         {/* card section */}
-        <div className='md:basis-[70%] flex flex-col items-center justify-center'>
-          <div
-            className={`flex flex-col items-center justify-center ${
-              loading === true ? 'min-h-screen]' : ''
-            }`}
-          >
-            {loading ? (
+        <div className=' flex flex-col items-center justify-center mx-auto'>
+          {loading ? (
+            <div className='flex items-center justify-center mx-auto'>
               <MoonLoader
                 loading={loading}
                 size={40}
                 color='rgba(12, 10, 9, 1)'
+                className='flex items-center justify-center'
               />
-            ) : (
-              <>
-                {' '}
-                {/* card container grid version */}
-                <div className='flex flex-col items-center justify-center'>
-                  <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3'>
-                    {currentItems?.map((item) => (
-                      <MealCard key={item?.idMeal} item={item} />
-                    ))}
-                  </div>
+            </div>
+          ) : (
+            <>
+              {' '}
+              {/* card container grid version */}
+              <div className='flex flex-col items-center justify-center'>
+                <div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-3'>
+                  {currentItems?.map((item) => (
+                    <MealCard key={item?.idMeal} item={item} />
+                  ))}
                 </div>
-                {/* pagination here */}
-                <div className='mt-6'>
-                  <ReactPaginate
-                    breakLabel='...'
-                    nextLabel='Next >'
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={3}
-                    pageCount={pageCount}
-                    forcePage={currentPage} // <- keeps correct page active from URL
-                    previousLabel='< Prev'
-                    renderOnZeroPageCount={null}
-                    containerClassName='flex items-center space-x-2'
-                    pageClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors'
-                    activeClassName='bg-black text-white dark:bg-white dark:text-black pointer-events-none'
-                    previousClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
-                    nextClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
-                    disabledClassName='opacity-50 cursor-not-allowed'
-                  />
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className='flex items-center justify-center'>
-            {meal?.length <= 0 ? <p>Data not found 😖</p> : ''}
-          </div>
+              </div>
+              {/* pagination here */}
+              <div className='mt-6'>
+                <ReactPaginate
+                  breakLabel='...'
+                  nextLabel='Next >'
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={3}
+                  pageCount={pageCount}
+                  forcePage={currentPage} // <- keeps correct page active from URL
+                  previousLabel='< Prev'
+                  renderOnZeroPageCount={null}
+                  containerClassName='flex items-center space-x-2'
+                  pageClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors'
+                  activeClassName='bg-black text-white dark:bg-white dark:text-black pointer-events-none'
+                  previousClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
+                  nextClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
+                  disabledClassName='opacity-50 cursor-not-allowed'
+                />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </section>
