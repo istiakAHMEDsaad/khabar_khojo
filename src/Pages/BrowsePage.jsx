@@ -8,6 +8,7 @@ import ReactPaginate from 'react-paginate';
 import { TypographyH3 } from '../components/Typography/TypographyH3';
 
 const BrowsePage = () => {
+  const [allMeals, setAllMeals] = useState([]);
   const [meal, setMeal] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -23,7 +24,7 @@ const BrowsePage = () => {
   useEffect(() => {
     const mealData = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_apiUrl}`);
+        const res = await axios.get(`${import.meta.env.VITE_apiUrl}${searchTerm}`);
         setMeal(res?.data?.meals || []);
       } catch (err) {
         toast.error(err?.message, {
@@ -41,7 +42,7 @@ const BrowsePage = () => {
       setLoading(false);
     };
     mealData();
-  }, []);
+  }, [searchTerm]);
 
 
   // pagination logic
@@ -54,6 +55,8 @@ const BrowsePage = () => {
     setCurrentPage(selected);
     setSearchParams({ page: (selected + 1).toString() });
   };
+
+  console.log(searchTerm)
 
   return (
     <section className='my-10 mx-auto container'>
