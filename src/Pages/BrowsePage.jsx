@@ -8,7 +8,6 @@ import ReactPaginate from 'react-paginate';
 import { TypographyH3 } from '../components/Typography/TypographyH3';
 
 const BrowsePage = () => {
-  const [allMeals, setAllMeals] = useState([]);
   const [meal, setMeal] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,14 +16,17 @@ const BrowsePage = () => {
   const initialPage = parseInt(searchParams.get('page') || 1); //default page 1
   const [currentPage, setCurrentPage] = useState(initialPage - 1); //make sure index 0
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const itemsPerPage = 9;
 
   useEffect(() => {
     const mealData = async () => {
+      setLoading(true);
       try {
-        const res = await axios.get(`${import.meta.env.VITE_apiUrl}${searchTerm}`);
+        const res = await axios.get(
+          `${import.meta.env.VITE_apiUrl}${searchTerm}`
+        );
         setMeal(res?.data?.meals || []);
       } catch (err) {
         toast.error(err?.message, {
@@ -44,7 +46,6 @@ const BrowsePage = () => {
     mealData();
   }, [searchTerm]);
 
-
   // pagination logic
   const offset = currentPage * itemsPerPage;
   const currentItems = meal?.slice(offset, offset + itemsPerPage);
@@ -56,7 +57,7 @@ const BrowsePage = () => {
     setSearchParams({ page: (selected + 1).toString() });
   };
 
-  console.log(searchTerm)
+  console.log(searchTerm);
 
   return (
     <section className='my-10 mx-auto container'>
@@ -92,7 +93,9 @@ const BrowsePage = () => {
                       id='Search'
                       className='mt-0.5 w-full rounded border border-gray-300 pe-10 shadow-sm sm:text-sm h-8 pl-2'
                       value={searchTerm}
-                      onChange={(e)=>{setSearchTerm(e.target.value)}}
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                      }}
                     />
 
                     <span className='absolute inset-y-0 right-2 grid w-8 place-content-center'>
@@ -131,42 +134,48 @@ const BrowsePage = () => {
               loading === true ? 'min-h-screen]' : ''
             }`}
           >
-            {loading && (
+            {loading ? (
               <MoonLoader
                 loading={loading}
                 size={40}
                 color='rgba(12, 10, 9, 1)'
               />
+            ) : (
+              <>
+                {' '}
+                {/* card container grid version */}
+                <div className='flex flex-col items-center justify-center'>
+                  <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3'>
+                    {currentItems?.map((item) => (
+                      <MealCard key={item?.idMeal} item={item} />
+                    ))}
+                  </div>
+                </div>
+                {/* pagination here */}
+                <div className='mt-6'>
+                  <ReactPaginate
+                    breakLabel='...'
+                    nextLabel='Next >'
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={3}
+                    pageCount={pageCount}
+                    forcePage={currentPage} // <- keeps correct page active from URL
+                    previousLabel='< Prev'
+                    renderOnZeroPageCount={null}
+                    containerClassName='flex items-center space-x-2'
+                    pageClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors'
+                    activeClassName='bg-black text-white dark:bg-white dark:text-black pointer-events-none'
+                    previousClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
+                    nextClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
+                    disabledClassName='opacity-50 cursor-not-allowed'
+                  />
+                </div>
+              </>
             )}
           </div>
 
-          {/* card container grid version */}
-          <div className='flex flex-col items-center justify-center'>
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3'>
-              {currentItems?.map((item) => (
-              <MealCard key={item?.idMeal} item={item} />
-            ))}
-            </div>
-          </div>
-
-          {/* pagination here */}
-          <div className='mt-6'>
-            <ReactPaginate
-              breakLabel='...'
-              nextLabel='Next >'
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={3}
-              pageCount={pageCount}
-              forcePage={currentPage} // <- keeps correct page active from URL
-              previousLabel='< Prev'
-              renderOnZeroPageCount={null}
-              containerClassName='flex items-center space-x-2'
-              pageClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
-              activeClassName='bg-black text-white dark:bg-white dark:text-black'
-              previousClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
-              nextClassName='px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-800'
-              disabledClassName='opacity-50 cursor-not-allowed'
-            />
+          <div className='flex items-center justify-center'>
+            {meal?.length <= 0 ? <p>Data not found 😖</p> : ''}
           </div>
         </div>
       </div>
