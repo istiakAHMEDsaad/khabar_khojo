@@ -7,6 +7,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 const FilterByCategory = () => {
   const [category, setCategory] = useState([]);
@@ -34,8 +36,6 @@ const FilterByCategory = () => {
     categoryData();
   }, []);
 
-  console.log(category);
-
   useEffect(() => {
     const ingredientData = async () => {
       try {
@@ -58,8 +58,6 @@ const FilterByCategory = () => {
     ingredientData();
   }, []);
 
-  console.log(ingredient);
-
   return (
     <div className='container mx-auto overflow-hidden font-sans'>
       {/* container */}
@@ -81,11 +79,11 @@ const FilterByCategory = () => {
         {/* left side */}
         <div className='lg:basis-[45%] w-full flex flex-col items-center'>
           {/* container */}
-          <div className='grid lg:grid-cols-4 md:grid-cols-3 md:gap-4'>
+          <div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-4 gap-2'>
             {category?.map((item, idx) => (
               <div
                 key={idx}
-                className='border border-gray-200 rounded-sm w-[19rem] md:w-auto flex flex-col items-center justify-center lg:hover:scale-[99%] transition-transform cursor-pointer'
+                className='border border-gray-200 rounded-sm  md:w-auto flex flex-col items-center justify-center lg:hover:scale-[99%] transition-transform cursor-pointer py-2'
               >
                 <img
                   src={item?.strCategoryThumb}
@@ -103,16 +101,20 @@ const FilterByCategory = () => {
         {/* right side */}
         <div className='lg:basis-[45%] flex flex-col items-center justify-center'>
           {/* container */}
-          <div className='grid grid-cols-4 md:grid-cols-6 lg:grid-cols-7'>
+          <div className='grid grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-2'>
             {ingredient?.map((item, idx) => (
-              <div key={idx + 1} className='border border-red-600'>
-                {/* <img
+              <div
+                key={idx + 1}
+                className='border flex flex-col items-center justify-center'
+              >
+                <LazyLoadImage
+                  alt={item?.strIngredient}
                   src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                     item?.strIngredient
                   )}.png`}
-                  alt={item?.strIngredient}
-                  className='w-16 h-16'
-                /> */}
+                  height={40}
+                  width={40}
+                />
                 <Tooltip>
                   <TooltipTrigger>
                     {item?.strIngredient.slice(0, 7) + '..'}
