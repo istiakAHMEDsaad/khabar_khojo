@@ -89,9 +89,9 @@ const MealCardDetails = () => {
   return (
     <section className='container mx-auto'>
       <Link to={-1} className=''>
-        <Button className={"mt-4"}>Back</Button>
+        <Button className={'mt-4'}>Back</Button>
       </Link>
-      
+
       <div
         className={`flex flex-col items-center justify-center ${
           loading === true ? 'min-h-screen]' : ''
@@ -638,7 +638,9 @@ const MealCardDetails = () => {
                       {strMeal}
                     </h2>
 
-                    <p className='mt-4 text-gray-700 dark:text-gray-300'>{strInstructions}</p>
+                    <p className='mt-4 text-gray-700 dark:text-gray-300'>
+                      {strInstructions}
+                    </p>
                   </div>
                 </div>
 

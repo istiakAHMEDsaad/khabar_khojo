@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const FilterByCategory = () => {
   const [category, setCategory] = useState([]);
@@ -78,6 +78,9 @@ const FilterByCategory = () => {
       <div className='flex items-start justify-center w-full flex-col lg:flex-row'>
         {/* left side */}
         <div className='lg:basis-[45%] w-full flex flex-col items-center'>
+          <p className='mb-2 text-2xl italic text-gray-600 underline'>
+            Food Category
+          </p>
           {/* container */}
           <div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-4 gap-2'>
             {category?.map((item, idx) => (
@@ -100,32 +103,39 @@ const FilterByCategory = () => {
 
         {/* right side */}
         <div className='lg:basis-[45%] flex flex-col items-center justify-center'>
+          <p className='mb-2 text-2xl italic text-gray-600 underline'>
+            Ingredient
+          </p>
           {/* container */}
-          <div className='grid grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-2'>
-            {ingredient?.map((item, idx) => (
-              <div
-                key={idx + 1}
-                className='border flex flex-col items-center justify-center'
-              >
-                <LazyLoadImage
-                  alt={item?.strIngredient}
-                  src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
-                    item?.strIngredient
-                  )}.png`}
-                  height={40}
-                  width={40}
-                />
-                <Tooltip>
-                  <TooltipTrigger>
-                    {item?.strIngredient.slice(0, 7) + '..'}
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{item?.strIngredient}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-            ))}
-          </div>
+          <ScrollArea className='w-full h-[33.5rem] rounded-md border p-4'>
+            <div className='grid grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-2'>
+              {ingredient?.map((item, idx) => (
+                <div
+                  key={idx + 1}
+                  className='border flex flex-col items-center justify-center mx-auto'
+                >
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <div className='flex flex-col items-center justify-center'>
+                        <LazyLoadImage
+                          alt={item?.strIngredient}
+                          src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                            item?.strIngredient
+                          )}.png`}
+                          height={40}
+                          width={40}
+                        />
+                        <p>{item?.strIngredient.slice(0, 7) + '..'}</p>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{item?.strIngredient}</p>{' '}
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
         </div>
       </div>
     </div>
