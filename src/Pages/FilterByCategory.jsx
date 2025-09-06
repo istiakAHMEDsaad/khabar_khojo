@@ -100,7 +100,7 @@ const FilterByCategory = () => {
                 <Link to={`/category/${item?.strCategory}`}>
                   <div
                   key={idx}
-                  className='border border-gray-200 rounded-sm  md:w-auto flex flex-col items-center justify-center lg:hover:scale-[99%] transition-transform cursor-pointer py-2'
+                  className='border border-gray-200 dark:border-gray-800 rounded-sm  md:w-auto flex flex-col items-center justify-center lg:hover:scale-[99%] transition-transform cursor-pointer py-2 shadow-sm'
                 >
                   <img
                     src={item?.strCategoryThumb}
@@ -135,9 +135,10 @@ const FilterByCategory = () => {
                 ingredient?.map((item, idx) => (
                   <div
                     key={idx + 1}
-                    className='border flex flex-col items-center justify-center mx-auto'
+                    className='border border-gray-200 dark:border-gray-800 flex flex-col items-center justify-center mx-auto shadow-xs'
                   >
-                    <Tooltip>
+                    <Link to={`/category/ingredient/${item?.strIngredient}`}>
+                      <Tooltip>
                       <TooltipTrigger>
                         <div className='flex flex-col items-center justify-center'>
                           <LazyLoadImage
@@ -145,8 +146,7 @@ const FilterByCategory = () => {
                             src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                               item?.strIngredient
                             )}.png`}
-                            height={40}
-                            width={40}
+                            className='w-[3.5rem] h-12 object-cover'
                           />
                           <p>{item?.strIngredient.slice(0, 7) + '..'}</p>
                         </div>
@@ -155,6 +155,7 @@ const FilterByCategory = () => {
                         <p>{item?.strIngredient}</p>{' '}
                       </TooltipContent>
                     </Tooltip>
+                    </Link>
                   </div>
                 ))
               )}

@@ -1,29 +1,29 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
+import { Button } from '@/components/ui/button';
+import { MoonLoader } from 'react-spinners';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Bounce, toast } from 'react-toastify';
+import axios from 'axios';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-import { MoonLoader } from 'react-spinners';
-import { Button } from '@/components/ui/button';
 
-const CategoryPage = () => {
-  const { id: mealStr } = useParams();
-  const [categoryItems, setCategoryItems] = useState([]);
+const IngredientPage = () => {
+  const { id: ingredientStr } = useParams();
+  const [ingredientItems, setIngredientsItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const mealCategory = async () => {
+    const ingredientData = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_apiSubCategory}${mealStr}`
+          `${import.meta.env.VITE_apiSubIngredient}${ingredientStr}`
         );
-        setCategoryItems(res?.data?.meals || []);
+        setIngredientsItems(res?.data?.meals);
       } catch (err) {
         toast.error(err?.message, {
           position: 'top-right',
@@ -39,21 +39,21 @@ const CategoryPage = () => {
       }
       setLoading(false);
     };
-    mealCategory();
-  }, [mealStr]);
-
+    ingredientData();
+  }, [ingredientStr]);
   return (
     <div className='container mx-auto'>
       <Link to={'/category'}>
         <Button className={'mt-2'}>Back</Button>
       </Link>
-      <p className='md:text-2xl text-xl font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-5'>
-        Selected Category:{' '}
+      <p className='md:text-2xl text-xl font-semibold dark:text-gray-300 text-gray-700 mt-3 mb-5'>
+        Selected Ingredient:{' '}
         <span className='italic text-red-500 animate__animated animate__flash animate__infinite animate__slower'>
-          {mealStr}
+          {ingredientStr}
         </span>
       </p>
 
+      {/* card section */}
       <div className='flex flex-col items-center justify-center'>
         {/* container */}
         <div className='grid lg:grid-cols-5 grid-cols-2 lg:gap-3 md:gap-2 gap-1 mx-auto'>
@@ -64,8 +64,8 @@ const CategoryPage = () => {
               color='rgba(6,182,212, 1)'
             />
           ) : (
-            categoryItems?.map((item) => (
-              <Link to={`/category/details/${item?.idMeal}`}>
+            ingredientItems?.map((item) => (
+              <Link to={`/category/ingredient/details/${item?.idMeal}`}>
                 <div
                   key={item?.idMeal}
                   className='border border-gray-300 w-full flex flex-col items-center jutify-center lg:pt-5 lg:pb-3 md:py-3 py-3 rounded-sm shadow-sm hover:scale-[99%] transition-transform cursor-pointer'
@@ -96,4 +96,4 @@ const CategoryPage = () => {
   );
 };
 
-export default CategoryPage;
+export default IngredientPage;

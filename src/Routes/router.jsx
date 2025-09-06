@@ -6,6 +6,7 @@ import BrowsePage from '../Pages/BrowsePage';
 import FilterByCategory from '../Pages/FilterByCategory';
 import MealCardDetails from '../components/Card_Item/MealCardDetails';
 import CategoryPage from '../Pages/CategoryPage';
+import IngredientPage from '../Pages/IngredientPage';
 
 const router = createBrowserRouter([
   {
@@ -31,12 +32,20 @@ const router = createBrowserRouter([
       },
       {
         path: '/category/:id',
-        element: <CategoryPage/>,
+        element: <CategoryPage />,
       },
       {
         path: '/category/details/:id',
-        element: <MealCardDetails/>,
-      }
+        element: <MealCardDetails />,
+      },
+      {
+        path: '/category/ingredient/:id',
+        element: <IngredientPage />,
+      },
+      {
+        path: '/category/ingredient/details/:id',
+        element: <MealCardDetails />,
+      },
     ],
   },
 ]);
