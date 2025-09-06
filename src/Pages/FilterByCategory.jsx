@@ -9,10 +9,13 @@ import {
 } from '@/components/ui/tooltip';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { MoonLoader } from 'react-spinners';
 
 const FilterByCategory = () => {
   const [category, setCategory] = useState([]);
   const [ingredient, setIngredient] = useState([]);
+  const [loadingOne, setLoadingOne] = useState([true]);
+  const [loadingTwo, setLoadingTwo] = useState([true]);
 
   useEffect(() => {
     const categoryData = async () => {
@@ -32,6 +35,7 @@ const FilterByCategory = () => {
           transition: Bounce,
         });
       }
+      setLoadingOne(false);
     };
     categoryData();
   }, []);
@@ -54,14 +58,14 @@ const FilterByCategory = () => {
           transition: Bounce,
         });
       }
+      setLoadingTwo(false);
     };
     ingredientData();
   }, []);
 
   return (
     <div className='container mx-auto overflow-hidden font-sans'>
-      {/* container */}
-
+      {/* text */}
       <p className='text-center my-10 lg:text-3xl font-semibold '>
         Search you food by{' '}
         <span className='italic text-red-500'>
@@ -75,27 +79,36 @@ const FilterByCategory = () => {
         </span>
       </p>
 
+      {/* container */}
       <div className='flex items-start justify-center w-full flex-col lg:flex-row'>
         {/* left side */}
         <div className='lg:basis-[45%] w-full flex flex-col items-center'>
-          <p className='mb-2 text-2xl italic text-gray-600 underline'>
+          <p className='mb-2 text-2xl italic text-gray-600 dark:text-gray-200 underline'>
             Food Category
           </p>
           {/* container */}
           <div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-4 gap-2'>
-            {category?.map((item, idx) => (
-              <div
-                key={idx}
-                className='border border-gray-200 rounded-sm  md:w-auto flex flex-col items-center justify-center lg:hover:scale-[99%] transition-transform cursor-pointer py-2'
-              >
-                <img
-                  src={item?.strCategoryThumb}
-                  alt={item?.strCategory}
-                  className='w-40 h-20 object-contain'
-                />
-                <p>{item?.strCategory}</p>
-              </div>
-            ))}
+            {loadingOne ? (
+              <MoonLoader
+                loading={loadingOne}
+                size={40}
+                color='rgba(6,182,212, 1)'
+              />
+            ) : (
+              category?.map((item, idx) => (
+                <div
+                  key={idx}
+                  className='border border-gray-200 rounded-sm  md:w-auto flex flex-col items-center justify-center lg:hover:scale-[99%] transition-transform cursor-pointer py-2'
+                >
+                  <img
+                    src={item?.strCategoryThumb}
+                    alt={item?.strCategory}
+                    className='w-40 h-20 object-contain'
+                  />
+                  <p>{item?.strCategory}</p>
+                </div>
+              ))
+            )}
           </div>
         </div>
 
@@ -103,13 +116,13 @@ const FilterByCategory = () => {
 
         {/* right side */}
         <div className='lg:basis-[45%] flex flex-col items-center justify-center'>
-          <p className='mb-2 text-2xl italic text-gray-600 underline'>
+          <p className='mb-2 text-2xl italic text-gray-600 dark:text-gray-200 underline'>
             Ingredient
           </p>
           {/* container */}
           <ScrollArea className='w-full h-[33.5rem] rounded-md border p-4'>
-            <div className='grid grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-2'>
-              {ingredient?.map((item, idx) => (
+            <div className='grid grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-2 items-center justify-center mx-auto'>
+              {/* {ingredient?.map((item, idx) => (
                 <div
                   key={idx + 1}
                   className='border flex flex-col items-center justify-center mx-auto'
@@ -133,7 +146,40 @@ const FilterByCategory = () => {
                     </TooltipContent>
                   </Tooltip>
                 </div>
-              ))}
+              ))} */}
+              {loadingOne ? (
+                <MoonLoader
+                  loading={loadingOne}
+                  size={40}
+                  color='rgba(6,182,212, 1)'
+                />
+              ) : (
+                ingredient?.map((item, idx) => (
+                  <div
+                    key={idx + 1}
+                    className='border flex flex-col items-center justify-center mx-auto'
+                  >
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <div className='flex flex-col items-center justify-center'>
+                          <LazyLoadImage
+                            alt={item?.strIngredient}
+                            src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                              item?.strIngredient
+                            )}.png`}
+                            height={40}
+                            width={40}
+                          />
+                          <p>{item?.strIngredient.slice(0, 7) + '..'}</p>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{item?.strIngredient}</p>{' '}
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                ))
+              )}
             </div>
           </ScrollArea>
         </div>

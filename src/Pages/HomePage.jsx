@@ -108,7 +108,7 @@ const HomePage = () => {
 
         {/* card section */}
         {loading && (
-          <MoonLoader loading={loading} size={40} color='rgba(12, 10, 9, 1)' />
+          <MoonLoader loading={loading} size={40} color='rgba(6,182,212, 1)' />
         )}
         <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-4'>
           {meals?.map((meal) => (

@@ -97,7 +97,7 @@ const BrowsePage = () => {
               <MoonLoader
                 loading={loading}
                 size={40}
-                color='rgba(12, 10, 9, 1)'
+                color='rgba(6,182,212, 1)'
                 className='flex items-center justify-center'
               />
             </div>
