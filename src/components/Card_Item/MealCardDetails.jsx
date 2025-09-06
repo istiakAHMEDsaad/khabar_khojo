@@ -7,6 +7,8 @@ import ReactPlayer from 'react-player';
 import { TypographyH3 } from '../Typography/TypographyH3';
 import { ScrollText, CookingPot } from 'lucide-react';
 import { Button } from '../ui/button';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const MealCardDetails = () => {
   const { id: mealId } = useParams();
@@ -83,8 +85,6 @@ const MealCardDetails = () => {
     strMeasure14,
     strMeasure15,
   } = mealDetails || {};
-
-  console.log(strYoutube);
 
   return (
     <section className='container mx-auto'>
@@ -168,7 +168,10 @@ const MealCardDetails = () => {
               </p>
 
               <div className='mt-4 md:mt-8'>
-                <button onClick={scrollToRead} className='btn btn-neutral'>
+                <button
+                  onClick={scrollToRead}
+                  className='btn btn-neutral dark:btn-soft'
+                >
                   Read Full Description
                 </button>
               </div>
@@ -223,11 +226,19 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            {/* <img
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient1
                               )}.png`}
                               alt={strIngredient1}
+                            /> */}
+                            <LazyLoadImage
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                strIngredient1
+                              )}.png`}
+                              alt={strIngredient1}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -250,11 +261,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient2
                               )}.png`}
                               alt={strIngredient2}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -277,11 +290,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient3
                               )}.png`}
                               alt={strIngredient3}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -304,11 +319,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient4
                               )}.png`}
                               alt={strIngredient4}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -331,11 +348,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient5
                               )}.png`}
                               alt={strIngredient5}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -358,11 +377,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient6
                               )}.png`}
                               alt={strIngredient6}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -385,11 +406,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient7
                               )}.png`}
                               alt={strIngredient7}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -412,11 +435,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient8
                               )}.png`}
                               alt={strIngredient8}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -439,11 +464,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient9
                               )}.png`}
                               alt={strIngredient9}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -466,11 +493,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient10
                               )}.png`}
                               alt={strIngredient10}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -493,11 +522,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient11
                               )}.png`}
                               alt={strIngredient11}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -520,11 +551,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient12
                               )}.png`}
                               alt={strIngredient12}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -539,7 +572,7 @@ const MealCardDetails = () => {
                   ''
                 )}
 
-                {/* row 10 */}
+                {/* row 13 */}
                 {strIngredient13 ? (
                   <tr>
                     {/* image */}
@@ -547,11 +580,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient13
                               )}.png`}
                               alt={strIngredient13}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -574,11 +609,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient14
                               )}.png`}
                               alt={strIngredient14}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -601,11 +638,13 @@ const MealCardDetails = () => {
                       <div className='flex items-center gap-3'>
                         <div className='avatar'>
                           <div className='mask mask-squircle h-12 w-12'>
-                            <img
+                            <LazyLoadImage
                               src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
                                 strIngredient15
                               )}.png`}
                               alt={strIngredient15}
+                              className='w-full h-full'
+                              effect='blur'
                             />
                           </div>
                         </div>
@@ -646,10 +685,11 @@ const MealCardDetails = () => {
 
                 {/* image */}
                 <div className='lg:basis-[30%] md:basis-[40%] lg:pt-0 md:pt-14'>
-                  <img
+                  <LazyLoadImage
                     src={strMealThumb}
                     alt={strMeal}
                     className='lg:h-96 lg:w-96 object-cover rounded-md'
+                    effect='blur'
                   />
                 </div>
               </div>

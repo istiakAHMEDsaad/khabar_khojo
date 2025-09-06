@@ -8,6 +8,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { MoonLoader } from 'react-spinners';
 import { Link } from 'react-router';
@@ -99,16 +100,22 @@ const FilterByCategory = () => {
               category?.map((item, idx) => (
                 <Link to={`/category/${item?.strCategory}`}>
                   <div
-                  key={idx}
-                  className='border border-gray-200 dark:border-gray-800 rounded-sm  md:w-auto flex flex-col items-center justify-center lg:hover:scale-[99%] transition-transform cursor-pointer py-2 shadow-sm'
-                >
-                  <img
-                    src={item?.strCategoryThumb}
-                    alt={item?.strCategory}
-                    className='w-40 h-20 object-contain'
-                  />
-                  <p>{item?.strCategory}</p>
-                </div>
+                    key={idx}
+                    className='border border-gray-200 dark:border-gray-800 rounded-sm  md:w-auto flex flex-col items-center justify-center lg:hover:scale-[99%] transition-transform cursor-pointer py-2 shadow-sm'
+                  >
+                    {/* <img
+                      src={item?.strCategoryThumb}
+                      alt={item?.strCategory}
+                      className='w-40 h-20 object-contain'
+                    /> */}
+                    <LazyLoadImage
+                      src={item?.strCategoryThumb}
+                      alt={item?.strCategory}
+                      className='w-40 h-20 object-contain'
+                      effect='blur'
+                    />
+                    <p>{item?.strCategory}</p>
+                  </div>
                 </Link>
               ))
             )}
@@ -139,22 +146,23 @@ const FilterByCategory = () => {
                   >
                     <Link to={`/category/ingredient/${item?.strIngredient}`}>
                       <Tooltip>
-                      <TooltipTrigger>
-                        <div className='flex flex-col items-center justify-center'>
-                          <LazyLoadImage
-                            alt={item?.strIngredient}
-                            src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
-                              item?.strIngredient
-                            )}.png`}
-                            className='w-[3.5rem] h-12 object-cover'
-                          />
-                          <p>{item?.strIngredient.slice(0, 7) + '..'}</p>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{item?.strIngredient}</p>{' '}
-                      </TooltipContent>
-                    </Tooltip>
+                        <TooltipTrigger>
+                          <div className='flex flex-col items-center justify-center'>
+                            <LazyLoadImage
+                              alt={item?.strIngredient}
+                              src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
+                                item?.strIngredient
+                              )}.png`}
+                              className='w-[3.5rem] h-12 object-cover'
+                              effect='blur'
+                            />
+                            <p>{item?.strIngredient.slice(0, 7) + '..'}</p>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{item?.strIngredient}</p>{' '}
+                        </TooltipContent>
+                      </Tooltip>
                     </Link>
                   </div>
                 ))

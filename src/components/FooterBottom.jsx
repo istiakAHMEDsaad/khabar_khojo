@@ -1,7 +1,7 @@
 import { TypographyH3 } from '../components/Typography/TypographyH3';
 
 const FooterBottom = () => {
-  // console.log(theme);
+
   return (
     <footer className='bg-gray-100 font-sans dark:bg-neutral-950'>
       <div className='mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8'>

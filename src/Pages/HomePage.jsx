@@ -15,6 +15,8 @@ import { useEffect, useState, CSSProperties } from 'react';
 import { toast, Bounce } from 'react-toastify';
 import { MoonLoader } from 'react-spinners';
 import { Link } from 'react-router';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const HomePage = () => {
   const [meals, setMeals] = useState([]);
@@ -23,9 +25,7 @@ const HomePage = () => {
   useEffect(() => {
     const limitedData = async () => {
       try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_apiUrl}`
-        );
+        const res = await axios.get(`${import.meta.env.VITE_apiUrl}`);
         const sixData = res?.data?.meals?.slice(0, 8) || [];
 
         setMeals(sixData);
@@ -119,6 +119,12 @@ const HomePage = () => {
                   src={meal?.strMealThumb}
                   className='h-56 w-full rounded-md object-cover'
                 />
+                {/* <LazyLoadImage
+                  alt={`${meal?.strMeal} image`}
+                  src={meal?.strMealThumb}
+                  className='h-56 w-full rounded-md object-cover'
+                  effect='blur'
+                /> */}
 
                 {/* text */}
                 <div className='mt-2'>
@@ -179,7 +185,9 @@ const HomePage = () => {
         </div>
 
         <div>
-          <Link to={'/browse'}><Button>Browse All</Button></Link>
+          <Link to={'/browse'}>
+            <Button>Browse All</Button>
+          </Link>
         </div>
       </div>
     </main>

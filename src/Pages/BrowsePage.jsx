@@ -59,8 +59,6 @@ const BrowsePage = () => {
     setSearchParams({ page: (selected + 1).toString() });
   };
 
-  console.log(searchTerm);
-
   return (
     <section className='my-10 mx-auto container'>
       <TypographyH3

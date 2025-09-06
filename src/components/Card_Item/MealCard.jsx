@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { Button } from '../ui/button';
 import { Link } from 'react-router';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const MealCard = ({ item }) => {
   const {
@@ -15,10 +17,16 @@ const MealCard = ({ item }) => {
   return (
     <div>
       <article className='overflow-hidden rounded-lg shadow-sm transition hover:shadow-lg'>
-        <img
+        {/* <img
           alt={strMeal}
           src={strMealThumb}
           className='h-56 w-full object-cover'
+        /> */}
+        <LazyLoadImage
+          alt={strMeal}
+          src={strMealThumb}
+          className='w-full object-cover -mb-2'
+          effect='blur'
         />
 
         <div className='bg-white dark:bg-neutral-600 p-4 sm:p-6'>
@@ -42,12 +50,15 @@ const MealCard = ({ item }) => {
           </p>
 
           <p className='text-sm font-bold text-gray-700 dark:text-gray-300'>
-            Tag# <span className='font-normal italic underline'>{strTags? 'strTags': 'None'}</span>
+            Tag#{' '}
+            <span className='font-normal italic underline'>
+              {strTags ? 'strTags' : 'None'}
+            </span>
           </p>
 
           <div className='mt-3 flex flex-row items-center justify-between'>
             <Button variant='destructive' asChild>
-              <a href={strYoutube} target='_blank'>
+              <a href={strYoutube} target='_blank' rel="noopener noreferrer">
                 YouTube
               </a>
             </Button>
