@@ -10,6 +10,7 @@ import {
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { MoonLoader } from 'react-spinners';
+import { Link } from 'react-router';
 
 const FilterByCategory = () => {
   const [category, setCategory] = useState([]);
@@ -96,7 +97,8 @@ const FilterByCategory = () => {
               />
             ) : (
               category?.map((item, idx) => (
-                <div
+                <Link to={`/category/${item?.strCategory}`}>
+                  <div
                   key={idx}
                   className='border border-gray-200 rounded-sm  md:w-auto flex flex-col items-center justify-center lg:hover:scale-[99%] transition-transform cursor-pointer py-2'
                 >
@@ -107,6 +109,7 @@ const FilterByCategory = () => {
                   />
                   <p>{item?.strCategory}</p>
                 </div>
+                </Link>
               ))
             )}
           </div>
@@ -122,34 +125,9 @@ const FilterByCategory = () => {
           {/* container */}
           <ScrollArea className='w-full h-[33.5rem] rounded-md border p-4'>
             <div className='grid grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-2 items-center justify-center mx-auto'>
-              {/* {ingredient?.map((item, idx) => (
-                <div
-                  key={idx + 1}
-                  className='border flex flex-col items-center justify-center mx-auto'
-                >
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <div className='flex flex-col items-center justify-center'>
-                        <LazyLoadImage
-                          alt={item?.strIngredient}
-                          src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(
-                            item?.strIngredient
-                          )}.png`}
-                          height={40}
-                          width={40}
-                        />
-                        <p>{item?.strIngredient.slice(0, 7) + '..'}</p>
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{item?.strIngredient}</p>{' '}
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
-              ))} */}
-              {loadingOne ? (
+              {loadingTwo ? (
                 <MoonLoader
-                  loading={loadingOne}
+                  loading={loadingTwo}
                   size={40}
                   color='rgba(6,182,212, 1)'
                 />

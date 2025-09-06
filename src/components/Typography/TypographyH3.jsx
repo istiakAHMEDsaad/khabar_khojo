@@ -7,11 +7,12 @@ export function TypographyH3({
   animateOne,
   animateTwo,
   animateThree,
-  animateFour
+  animateFour,
+  optionalClass
 }) {
   return (
     <h3
-      className={`scroll-m-20 text-2xl font-semibold tracking-tight dark:text-gray-200 ${textVal} text-${textItem} ${animateOne} ${animateTwo} ${animateThree} ${animateFour}`}
+      className={`scroll-m-20 md:text-2xl text-xl font-semibold tracking-tight dark:text-gray-200 ${textVal} text-${textItem} ${animateOne} ${animateTwo} ${animateThree} ${animateFour} ${optionalClass}`}
     >
       {children}
     </h3>
@@ -26,4 +27,5 @@ TypographyH3.propTypes = {
   animateTwo: PropTypes.string,
   animateThree: PropTypes.string,
   animateFour: PropTypes.string,
+  optionalClass: PropTypes.string,
 };
